@@ -1,4 +1,4 @@
-﻿namespace AlgorithmVisualiserProto
+﻿namespace AlgorithmVisualisationTool
 {
     partial class SortingAlgorithmVisualiser
     {

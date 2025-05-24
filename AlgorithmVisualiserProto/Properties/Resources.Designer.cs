@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AlgorithmVisualiserProto.Properties {
+namespace AlgorithmVisualisationTool.Properties {
     using System;
     
     

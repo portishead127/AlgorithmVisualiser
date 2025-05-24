@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AlgorithmVisualiserProto
+namespace AlgorithmVisualisationTool
 {
     internal class BogoSort : SortingAlgorithm
     {
