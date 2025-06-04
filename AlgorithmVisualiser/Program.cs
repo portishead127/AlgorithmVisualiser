@@ -16,7 +16,14 @@ namespace AlgorithmVisualiser
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SortingAlgorithmVisualiser(new int[] {1,4,3,5,6}));
+            Application.Run(new SortingAlgorithmVisualiser(GenerateRandomArray(30)));
+        }
+
+        public static int[] GenerateRandomArray(int size)
+        {
+            return Enumerable.Range(1, size)
+                             .OrderBy(x => Guid.NewGuid()) // Randomise the order
+                             .ToArray();
         }
     }
 }

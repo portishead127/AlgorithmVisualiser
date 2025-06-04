@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BubbleSort.cs" />
+    <Compile Include="DoubleBufferedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InsertionSort.cs" />
+    <Compile Include="SortingAlgorithm.cs" />
     <Compile Include="SortingAlgorithmVisualiser.cs">
       <SubType>Form</SubType>
     </Compile>

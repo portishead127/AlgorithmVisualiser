@@ -28,15 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlRectangleBox = new System.Windows.Forms.Panel();
+            this.pnlRect = new AlgorithmVisualiser.DoubleBufferedPanel();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // pnlRectangleBox
+            // pnlRect
             // 
-            this.pnlRectangleBox.Location = new System.Drawing.Point(13, 13);
-            this.pnlRectangleBox.Name = "pnlRectangleBox";
-            this.pnlRectangleBox.Size = new System.Drawing.Size(775, 425);
-            this.pnlRectangleBox.TabIndex = 0;
+            this.pnlRect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlRect.BackColor = System.Drawing.Color.Transparent;
+            this.pnlRect.Location = new System.Drawing.Point(13, 70);
+            this.pnlRect.Name = "pnlRect";
+            this.pnlRect.Size = new System.Drawing.Size(775, 368);
+            this.pnlRect.TabIndex = 0;
+            this.pnlRect.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlRect_Paint);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(713, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SortingAlgorithmVisualiser
             // 
@@ -44,7 +60,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pnlRectangleBox);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pnlRect);
+            this.DoubleBuffered = true;
             this.Name = "SortingAlgorithmVisualiser";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -53,7 +71,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlRectangleBox;
+        private AlgorithmVisualiser.DoubleBufferedPanel pnlRect;
+        private System.Windows.Forms.Button button1;
     }
 }
 
