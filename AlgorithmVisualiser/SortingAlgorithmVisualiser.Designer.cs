@@ -28,13 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.pnlRectangleBox = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // pnlRectangleBox
+            // 
+            this.pnlRectangleBox.Location = new System.Drawing.Point(13, 13);
+            this.pnlRectangleBox.Name = "pnlRectangleBox";
+            this.pnlRectangleBox.Size = new System.Drawing.Size(775, 425);
+            this.pnlRectangleBox.TabIndex = 0;
+            // 
+            // SortingAlgorithmVisualiser
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pnlRectangleBox);
+            this.Name = "SortingAlgorithmVisualiser";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel pnlRectangleBox;
     }
 }
 

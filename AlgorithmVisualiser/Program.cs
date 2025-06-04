@@ -16,7 +16,7 @@ namespace AlgorithmVisualiser
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SortingAlgorithmVisualiser());
+            Application.Run(new SortingAlgorithmVisualiser(new int[] {1,4,3,5,6}));
         }
     }
 }
