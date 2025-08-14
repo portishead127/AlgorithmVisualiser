@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,7 +23,7 @@ namespace AlgorithmVisualiser
 
         public SortingAlgorithmVisualiser(int[] array)
         {
-            sortingAlgorithm = new InsertionSort(this); // You can change this to any sorting algorithm you implement
+            sortingAlgorithm = new BubbleSort(this); // You can change this to any sorting algorithm you implement
             InitializeComponent();
             currentArray = array;
             originalArray = (int[])array.Clone(); // Store the original array for reference

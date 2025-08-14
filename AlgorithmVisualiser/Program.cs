@@ -16,7 +16,7 @@ namespace AlgorithmVisualiser
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SortingAlgorithmVisualiser(GenerateRandomArray(30)));
+            Application.Run(new SortingAlgorithmVisualiser(GenerateRandomArray(20)));
         }
 
         public static int[] GenerateRandomArray(int size)

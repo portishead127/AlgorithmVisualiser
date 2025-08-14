@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BogoSort.cs" />
     <Compile Include="BubbleSort.cs" />
     <Compile Include="DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
