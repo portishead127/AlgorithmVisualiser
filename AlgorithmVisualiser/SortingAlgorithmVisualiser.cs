@@ -15,65 +15,43 @@ namespace AlgorithmVisualiser
     public partial class SortingAlgorithmVisualiser : Form
     {
         SortingAlgorithm sortingAlgorithm;
+        SortingAlgorithm.SortingFrame currentFrame;
 
         public SortingAlgorithmVisualiser(SortingAlgorithm sortingAlgorithm)
         {
-            this.sortingAlgorithm = sortingAlgorithm; // You can change this to any sorting algorithm you implement
+            this.sortingAlgorithm = sortingAlgorithm;
             InitializeComponent();
             pnlRect.Paint += pnlRect_Paint;
         }
 
-        public async Task Next(int[] newArray, int[] redIndices, int[] greenIndices, int[] blueIndices)
+        public async Task DisplayNextFrame(SortingAlgorithm.SortingFrame newFrame)
         {
-            SetArray(newArray);
-            HighlightIndices(redIndices, greenIndices, blueIndices);
+            currentFrame = newFrame;
+            pnlRect.Invalidate();
             await Task.Delay(10); // Delay to visualize the changes
-            pnlRect.Invalidate(); // This will trigger the Paint event
-        }
-
-        private void SetArray(int[] newArray)
-        {
-            currentArray = newArray;
-        }
-
-        private void HighlightIndices(int[] redIndices, int[] greenIndices, int[] blueIndices)
-        {
-            redHighlightIndices = redIndices;
-            greenHighlightIndices = greenIndices;
-            blueHighlightIndices = blueIndices;
         }
 
         private void pnlRect_Paint(object sender, PaintEventArgs e)
         {
-            if (currentArray == null || currentArray.Length == 0)
-                return;
-
-            int width = pnlRect.Width / currentArray.Length;
-            for (int i = 0; i < currentArray.Length; i++)
+            if (!ValidateFrame())
             {
-                int height = (int)((double)currentArray[i] / currentArray.Max() * pnlRect.Height);
+                throw new Exception("Invalid frame passed to visualiser.");
+            }
+
+            int rectWidth = pnlRect.Width / currentFrame.array.Length;
+
+            for (int i = 0; i < currentFrame.array.Length; i++)
+            {
+                int height = (int)((double)currentFrame.array[i] / currentFrame.array.Max() * pnlRect.Height);
                 Rectangle rect = new Rectangle(
-                    i * width,
+                    i * rectWidth,
                     pnlRect.Height - height,
-                    width - 1, // Subtracting 1 to create a gap between rectangles
+                    rectWidth - 1, // Subtracting 1 to create a gap between rectangles
                     height);
 
-                Brush brush;
-
-                using( brush = new SolidBrush(Color.White))
+                using(Brush brush = new SolidBrush(Color.White))
                 {
-                    if (redHighlightIndices != null && redHighlightIndices.Contains(i))
-                    {
-                        brush = new SolidBrush(Color.Red);
-                    }
-                    else if (greenHighlightIndices != null && greenHighlightIndices.Contains(i))
-                    {
-                        brush = new SolidBrush(Color.Green);
-                    }
-                    else if (blueHighlightIndices != null && blueHighlightIndices.Contains(i))
-                    {
-                        brush = new SolidBrush(Color.Blue);
-                    }
+                    
                     e.Graphics.FillRectangle(brush, rect);
                 }
             }
@@ -81,58 +59,30 @@ namespace AlgorithmVisualiser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            sortingAlgorithm.Sort(currentArray);
+            sortingAlgorithm.Sort();
             button1.Enabled = false; // Disable the button to prevent multiple clicks
         }
 
-        //public static void PlayBeep(UInt16 frequency, int msDuration = 100, UInt16 volume = 16383)
-        //{
-        //    var mStrm = new MemoryStream();
-        //    BinaryWriter writer = new BinaryWriter(mStrm);
+        private bool ValidateFrame()
+        {
+            if (currentFrame.array == null || currentFrame.array.Length == 0) return false;
+            return true;
+        }
 
-        //    const double TAU = 2 * Math.PI;
-        //    int formatChunkSize = 16;
-        //    int headerSize = 8;
-        //    short formatType = 1;
-        //    short tracks = 1;
-        //    int samplesPerSecond = 44100;
-        //    short bitsPerSample = 16;
-        //    short frameSize = (short)(tracks * ((bitsPerSample + 7) / 8));
-        //    int bytesPerSecond = samplesPerSecond * frameSize;
-        //    int waveSize = 4;
-        //    int samples = (int)((decimal)samplesPerSecond * msDuration / 1000);
-        //    int dataChunkSize = samples * frameSize;
-        //    int fileSize = waveSize + headerSize + formatChunkSize + headerSize + dataChunkSize;
-        //    // var encoding = new System.Text.UTF8Encoding();
-        //    writer.Write(0x46464952); // = encoding.GetBytes("RIFF")
-        //    writer.Write(fileSize);
-        //    writer.Write(0x45564157); // = encoding.GetBytes("WAVE")
-        //    writer.Write(0x20746D66); // = encoding.GetBytes("fmt ")
-        //    writer.Write(formatChunkSize);
-        //    writer.Write(formatType);
-        //    writer.Write(tracks);
-        //    writer.Write(samplesPerSecond);
-        //    writer.Write(bytesPerSecond);
-        //    writer.Write(frameSize);
-        //    writer.Write(bitsPerSample);
-        //    writer.Write(0x61746164); // = encoding.GetBytes("data")
-        //    writer.Write(dataChunkSize);
-        //    {
-        //        double theta = frequency * TAU / (double)samplesPerSecond;
-        //        // 'volume' is UInt16 with range 0 thru Uint16.MaxValue ( = 65 535)
-        //        // we need 'amp' to have the range of 0 thru Int16.MaxValue ( = 32 767)
-        //        double amp = volume >> 2; // so we simply set amp = volume / 2
-        //        for (int step = 0; step < samples; step++)
-        //        {
-        //            short s = (short)(amp * Math.Sin(theta * (double)step));
-        //            writer.Write(s);
-        //        }
-        //    }
-
-        //    mStrm.Seek(0, SeekOrigin.Begin);
-        //    new System.Media.SoundPlayer(mStrm).PlaySync();
-        //    writer.Close();
-        //    mStrm.Close();
-        //}
+        private SolidBrush DecideBrushColour(int arrayEntry)
+        {
+            if (currentFrame.redIndices != null && currentFrame.redIndices.Contains(arrayEntry))
+            {
+                return new SolidBrush(Color.Red);
+            }
+            else if (currentFrame.greenIndices != null && currentFrame.greenIndices.Contains(arrayEntry))
+            {
+                return new SolidBrush(Color.Green);
+            }
+            else if (currentFrame.blueIndices != null && currentFrame.blueIndices.Contains(arrayEntry))
+            {
+                return new SolidBrush(Color.Blue);
+            }
+        }
     }
 }
