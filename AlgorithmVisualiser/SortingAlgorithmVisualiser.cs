@@ -20,22 +20,22 @@ namespace AlgorithmVisualiser
         public SortingAlgorithmVisualiser(SortingAlgorithm sortingAlgorithm)
         {
             this.sortingAlgorithm = sortingAlgorithm;
+            sortingAlgorithm.FrameUpdated += DisplayNextFrame;
             InitializeComponent();
-            pnlRect.Paint += pnlRect_Paint;
         }
 
         public async void DisplayNextFrame(SortingAlgorithm.SortingFrame newFrame)
         {
             currentFrame = newFrame;
             pnlRect.Invalidate();
-            await Task.Delay(10); // Delay to visualize the changes
+            await Task.Delay(10000); // Delay to visualize the changes
         }
 
         private void pnlRect_Paint(object sender, PaintEventArgs e)
         {
             if (!ValidateFrame())
             {
-                throw new Exception("Invalid frame passed to visualiser.");
+                return; // If the frame is not valid, do not draw anything
             }
 
             //TODO: POSSIBLE REFACTOR NEEDED HERE

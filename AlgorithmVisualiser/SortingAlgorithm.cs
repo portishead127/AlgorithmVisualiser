@@ -8,7 +8,7 @@ namespace AlgorithmVisualiser
 {
     public abstract class SortingAlgorithm
     {
-        protected SortingAlgorithmVisualiser visualiser;
+        public event Action<SortingFrame> FrameUpdated;
         public int[] array;
 
         public int[] Array {
@@ -25,10 +25,9 @@ namespace AlgorithmVisualiser
             }
         }
 
-        public SortingAlgorithm(int[] array, SortingAlgorithmVisualiser visualiser)
+        public SortingAlgorithm(int[] array)
         {
             this.array = array;
-            this.visualiser = visualiser;
         }
 
         public struct SortingFrame
@@ -49,14 +48,18 @@ namespace AlgorithmVisualiser
 
         public abstract void Sort();
 
+        public void PushFrame(SortingFrame frame)
+        {
+            FrameUpdated?.Invoke(frame);
+        }
 
         public void CompletionAnimation(int[] array)
         {
-            visualiser.DisplayNextFrame(new SortingFrame(array, null, null, null));
+            PushFrame(new SortingFrame(array, null, null, null));
 
             for (int i = 1; i <= array.Length; i++)
             {
-                visualiser.DisplayNextFrame(new SortingFrame(array, new int[0], new int[0], Enumerable.Range(0, i).ToArray()));
+                PushFrame(new SortingFrame(array, new int[0], new int[0], Enumerable.Range(0, i).ToArray()));
             }
         }
 

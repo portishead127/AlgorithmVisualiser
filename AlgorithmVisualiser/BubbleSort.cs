@@ -8,7 +8,7 @@ namespace AlgorithmVisualiser
 {
     internal class BubbleSort : SortingAlgorithm
     {
-        public BubbleSort(int[] array, SortingAlgorithmVisualiser visualiser) : base(array, visualiser) { }
+        public BubbleSort(int[] array) : base(array ) { }
 
         public override void Sort()
         {
@@ -20,7 +20,7 @@ namespace AlgorithmVisualiser
                 for (int j = 0; j < n - i - 1; j++)
                 {
                     // Highlight the current pair being compared
-                    visualiser.DisplayNextFrame(new SortingFrame(array, new int[] {j}, new int[] {j+1}, null));
+                    PushFrame(new SortingFrame(array, new int[] {j}, new int[] {j+1}, null));
                     if (array[j] > array[j + 1])
                     {
                         // Swap if the element found is greater than the next element
@@ -38,7 +38,7 @@ namespace AlgorithmVisualiser
                 }
 
                 // Update the visualiser with the current state of the array
-                visualiser.DisplayNextFrame(new SortingFrame(array, null, null, null));
+                PushFrame(new SortingFrame(array, null, null, null));
             }
             CompletionAnimation(array);
         }

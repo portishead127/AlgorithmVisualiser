@@ -8,7 +8,7 @@ namespace AlgorithmVisualiser
 {
     internal class BogoSort : SortingAlgorithm
     {
-        public BogoSort(int[] array, SortingAlgorithmVisualiser visualiser) : base(array, visualiser) { }
+        public BogoSort(int[] array) : base(array) { }
 
         public override void Sort()
         {
@@ -25,7 +25,7 @@ namespace AlgorithmVisualiser
                 array[index1] = array[index2];
                 array[index2] = temp;
 
-                visualiser.DisplayNextFrame(new SortingFrame(array, new int[] {index1}, new int[] { index2 }, null));
+                PushFrame(new SortingFrame(array, new int[] {index1}, new int[] { index2 }, null));
             }
             CompletionAnimation(array);
         }

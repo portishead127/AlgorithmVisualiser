@@ -8,7 +8,7 @@ namespace AlgorithmVisualiser
 {
     internal class InsertionSort : SortingAlgorithm
     {
-        public InsertionSort(int[] array, SortingAlgorithmVisualiser visualiser) : base(array, visualiser) { }
+        public InsertionSort(int[] array) : base(array) { }
 
         public override void Sort()
         {
@@ -19,12 +19,11 @@ namespace AlgorithmVisualiser
                 {
                     if (array[j] > array[j+1])
                     {
-                        visualiser.DisplayNextFrame(new SortingFrame(array, new int[] { j }, new int[] { i }, null));
+                        PushFrame(new SortingFrame(array, new int[] { j }, new int[] { i }, null));
                         // Swap elements
                         int temp = array[j];
                         array[j] = array[j + 1];
                         array[j + 1] = temp;
-                        // Highlight the swapped indices
                     }
                     j--;
                 }
