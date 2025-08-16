@@ -10,4 +10,4 @@
 - [ ] Styles (see array values)
 
 ## Major issue
-From what I can tell there is no good way to produce audio based on the selected array index's value as quickly as needed. Any help would be appreciated.
+From what I can tell there is no good way to produce audio based on the selected array index's value as quickly as needed.
