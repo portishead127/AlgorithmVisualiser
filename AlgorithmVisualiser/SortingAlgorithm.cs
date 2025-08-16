@@ -8,7 +8,7 @@ namespace AlgorithmVisualiser
 {
     public abstract class SortingAlgorithm
     {
-        protected LinkedList<Frame> frames = new LinkedList<Frame>();
+        protected Queue<Frame> frames = new Queue<Frame>();
         public int[] array;
 
         public int[] Array {
@@ -46,16 +46,16 @@ namespace AlgorithmVisualiser
             }
         }
 
-        public abstract LinkedList<Frame> Sort();
+        public abstract Queue<Frame> Sort();
 
 
         public void CompletionAnimation()
         {
-            frames.AddLast(new Frame((int[])array.Clone(), null, null, null));
+            frames.Enqueue(new Frame((int[])array.Clone(), null, null, null));
 
             for (int i = 1; i <= array.Length; i++)
             {
-                frames.AddLast(new Frame((int[])array.Clone(), new int[0], new int[0], Enumerable.Range(0, i).ToArray()));
+                frames.Enqueue(new Frame((int[])array.Clone(), new int[0], new int[0], Enumerable.Range(0, i).ToArray()));
             }
         }
 

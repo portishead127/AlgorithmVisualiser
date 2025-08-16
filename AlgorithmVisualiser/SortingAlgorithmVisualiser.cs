@@ -14,11 +14,10 @@ namespace AlgorithmVisualiser
 {
     public partial class SortingAlgorithmVisualiser : Form
     {
-        LinkedList<SortingAlgorithm.Frame> frames;
-        int currentFrameIndex = 0;
-        SortingAlgorithm.Frame currentFrame => frames.ElementAt(currentFrameIndex);
+        Queue<SortingAlgorithm.Frame> frames;
+        SortingAlgorithm.Frame currentFrame;
 
-        public SortingAlgorithmVisualiser(LinkedList<SortingAlgorithm.Frame> frames)
+        public SortingAlgorithmVisualiser(Queue<SortingAlgorithm.Frame> frames)
         {
             this.frames = frames;
             InitializeComponent();
@@ -26,11 +25,11 @@ namespace AlgorithmVisualiser
 
         public async void DisplayNextFrame()
         {
-            while (currentFrameIndex < frames.Count)
+            while (frames.Any())
             {
+                currentFrame = frames.Dequeue();
                 pnlRect.Invalidate();
                 await Task.Delay(10); // Delay to visualize the changes
-                currentFrameIndex++;
             }
         }
 
