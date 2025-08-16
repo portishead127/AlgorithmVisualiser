@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Wave.SampleProviders;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,9 +28,10 @@ namespace AlgorithmVisualiser
         {
             while (frames.Any())
             {
+                int frameDuration = 10; // ms
                 currentFrame = frames.Dequeue();
                 pnlRect.Invalidate();
-                await Task.Delay(10); // Delay to visualize the changes
+                await Task.Delay(frameDuration);
             }
         }
 

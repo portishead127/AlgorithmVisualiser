@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioManager.cs" />
     <Compile Include="BogoSort.cs" />
     <Compile Include="BubbleSort.cs" />
     <Compile Include="DoubleBufferedPanel.cs">

@@ -55,7 +55,7 @@ namespace AlgorithmVisualiser
 
             for (int i = 1; i <= array.Length; i++)
             {
-                frames.Enqueue(new Frame((int[])array.Clone(), new int[0], new int[0], Enumerable.Range(0, i).ToArray()));
+                frames.Enqueue(new Frame((int[])array.Clone(), null, null, Enumerable.Range(0, i).ToArray()));
             }
         }
 

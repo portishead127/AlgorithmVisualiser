@@ -17,18 +17,6 @@ namespace AlgorithmVisualiser
         [STAThread]
         static void Main()
         {
-            var sine20Seconds = new SignalGenerator()
-            {
-                Gain = 0.2,
-                Frequency = 500,
-                Type = SignalGeneratorType.Sin
-            }.Take(TimeSpan.FromSeconds(2));
-            using (var wo = new WaveOutEvent())
-            {
-                wo.Init(sine20Seconds);
-                wo.Play();
-            }
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new SortingAlgorithmVisualiser(new BubbleSort(GenerateRandomArray(20)).Sort()));
