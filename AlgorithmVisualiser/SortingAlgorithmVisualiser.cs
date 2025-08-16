@@ -24,7 +24,7 @@ namespace AlgorithmVisualiser
             pnlRect.Paint += pnlRect_Paint;
         }
 
-        public async Task DisplayNextFrame(SortingAlgorithm.SortingFrame newFrame)
+        public async void DisplayNextFrame(SortingAlgorithm.SortingFrame newFrame)
         {
             currentFrame = newFrame;
             pnlRect.Invalidate();
@@ -38,6 +38,8 @@ namespace AlgorithmVisualiser
                 throw new Exception("Invalid frame passed to visualiser.");
             }
 
+            //TODO: POSSIBLE REFACTOR NEEDED HERE
+
             int rectWidth = pnlRect.Width / currentFrame.array.Length;
 
             for (int i = 0; i < currentFrame.array.Length; i++)
@@ -49,9 +51,8 @@ namespace AlgorithmVisualiser
                     rectWidth - 1, // Subtracting 1 to create a gap between rectangles
                     height);
 
-                using(Brush brush = new SolidBrush(Color.White))
+                using(Brush brush = DecideBrushColour(i))
                 {
-                    
                     e.Graphics.FillRectangle(brush, rect);
                 }
             }
@@ -82,6 +83,10 @@ namespace AlgorithmVisualiser
             else if (currentFrame.blueIndices != null && currentFrame.blueIndices.Contains(arrayEntry))
             {
                 return new SolidBrush(Color.Blue);
+            }
+            else
+            {
+                return new SolidBrush(Color.White);
             }
         }
     }

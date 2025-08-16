@@ -8,14 +8,9 @@ namespace AlgorithmVisualiser
 {
     internal class BogoSort : SortingAlgorithm
     {
-        SortingAlgorithmVisualiser visualiser;
+        public BogoSort(int[] array, SortingAlgorithmVisualiser visualiser) : base(array, visualiser) { }
 
-        public BogoSort(SortingAlgorithmVisualiser visualiser)
-        {
-            this.visualiser = visualiser;
-        }
-
-        public async void Sort(int[] array)
+        public override void Sort()
         {
             Random rng = new Random();
 
@@ -30,31 +25,9 @@ namespace AlgorithmVisualiser
                 array[index1] = array[index2];
                 array[index2] = temp;
 
-                await visualiser.Next(array, new int[] {index1}, new int[] { index2 }, null);
+                visualiser.DisplayNextFrame(new SortingFrame(array, new int[] {index1}, new int[] { index2 }, null));
             }
             CompletionAnimation(array);
-        }
-
-        public  bool IsSorted(int[] array)
-        {
-            for (int i = 0; i < array.Length - 1; i++)
-            {
-                if (array[i] > array[i + 1])
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public async void CompletionAnimation(int[] array)
-        {
-            await visualiser.Next(array, null, null, null);
-
-            for (int i = 1; i <= array.Length; i++)
-            {
-                await visualiser.Next(array, new int[0], new int[0], Enumerable.Range(0, i).ToArray());
-            }
         }
     }
 }

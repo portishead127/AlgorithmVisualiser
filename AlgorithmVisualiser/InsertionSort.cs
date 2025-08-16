@@ -8,14 +8,9 @@ namespace AlgorithmVisualiser
 {
     internal class InsertionSort : SortingAlgorithm
     {
-        SortingAlgorithmVisualiser visualiser;
+        public InsertionSort(int[] array, SortingAlgorithmVisualiser visualiser) : base(array, visualiser) { }
 
-        public InsertionSort(SortingAlgorithmVisualiser visualiser)
-        {
-            this.visualiser = visualiser;
-        }
-
-        public async void Sort(int[] array)
+        public override void Sort()
         {
             for (int i = 1; i <= array.Length; i++)
             {
@@ -24,7 +19,7 @@ namespace AlgorithmVisualiser
                 {
                     if (array[j] > array[j+1])
                     {
-                        await visualiser.Next(array, new int[] { j }, new int[] { i }, Array.Empty<int>());
+                        visualiser.DisplayNextFrame(new SortingFrame(array, new int[] { j }, new int[] { i }, null));
                         // Swap elements
                         int temp = array[j];
                         array[j] = array[j + 1];
@@ -35,16 +30,6 @@ namespace AlgorithmVisualiser
                 }
             }
             CompletionAnimation(array);
-        }
-
-        public async void CompletionAnimation(int[] array)
-        {
-            await visualiser.Next(array, null, null, null);
-
-            for (int i = 1; i <= array.Length; i++)
-            {
-                await visualiser.Next(array, new int[0], new int[0], Enumerable.Range(0, i).ToArray());
-            }
         }
     }
 }

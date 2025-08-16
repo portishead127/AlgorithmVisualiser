@@ -8,11 +8,8 @@ namespace AlgorithmVisualiser
 {
     public abstract class SortingAlgorithm
     {
-        SortingAlgorithmVisualiser visualiser;
+        protected SortingAlgorithmVisualiser visualiser;
         public int[] array;
-        private int[] redIndices;
-        private int[] greenIndices;
-        private int[] blueIndices;
 
         public int[] Array {
             get
@@ -21,13 +18,58 @@ namespace AlgorithmVisualiser
             }
             set
             {
-                if(Array != null)
+                if(array != null)
                 {
                     array = value;
                 }
             }
         }
 
-        public abstract int[] Sort(int[] array);
+        public SortingAlgorithm(int[] array, SortingAlgorithmVisualiser visualiser)
+        {
+            this.array = array;
+            this.visualiser = visualiser;
+        }
+
+        public struct SortingFrame
+        {
+            public int[] array;
+            public int[] redIndices;
+            public int[] greenIndices;
+            public int[] blueIndices;
+
+            public SortingFrame(int[] array, int[] redIndices,  int[] greenIndices, int[] blueIndices)
+            {
+                this.array=array;
+                this.redIndices=redIndices;
+                this.greenIndices=greenIndices;
+                this.blueIndices=blueIndices;
+            }
+        }
+
+        public abstract void Sort();
+
+
+        public void CompletionAnimation(int[] array)
+        {
+            visualiser.DisplayNextFrame(new SortingFrame(array, null, null, null));
+
+            for (int i = 1; i <= array.Length; i++)
+            {
+                visualiser.DisplayNextFrame(new SortingFrame(array, new int[0], new int[0], Enumerable.Range(0, i).ToArray()));
+            }
+        }
+
+        public static bool IsSorted(int[] array)
+        {
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                if (array[i] > array[i + 1])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
