@@ -11,3 +11,5 @@
 
 ## Major issue
 From what I can tell there is no good way to produce audio based on the selected array index's value as quickly as needed. Any help would be appreciated.
+
+<img width="263" height="191" alt="image" src="https://github.com/user-attachments/assets/ccc0ab61-ebe7-40cb-a2e2-6f8013090002" />
