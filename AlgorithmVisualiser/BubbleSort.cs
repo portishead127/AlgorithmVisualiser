@@ -36,9 +36,6 @@ namespace AlgorithmVisualiser
                     CompletionAnimation();
                     return frames;
                 }
-
-                // Update the visualiser with the current state of the array
-                frames.Enqueue(new Frame((int[])array.Clone(), null, null, null));
             }
             CompletionAnimation();
             return frames;

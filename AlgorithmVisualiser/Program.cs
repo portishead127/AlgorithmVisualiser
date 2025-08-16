@@ -19,7 +19,7 @@ namespace AlgorithmVisualiser
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SortingAlgorithmVisualiser(new BubbleSort(GenerateRandomArray(20)).Sort()));
+            Application.Run(new SortingAlgorithmVisualiser(new BubbleSort(GenerateRandomArray(50)).Sort()));
         }
 
         public static int[] GenerateRandomArray(int size)
