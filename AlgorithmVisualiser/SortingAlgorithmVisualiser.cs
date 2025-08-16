@@ -14,21 +14,24 @@ namespace AlgorithmVisualiser
 {
     public partial class SortingAlgorithmVisualiser : Form
     {
-        SortingAlgorithm sortingAlgorithm;
-        SortingAlgorithm.SortingFrame currentFrame;
+        LinkedList<SortingAlgorithm.Frame> frames;
+        int currentFrameIndex = 0;
+        SortingAlgorithm.Frame currentFrame => frames.ElementAt(currentFrameIndex);
 
-        public SortingAlgorithmVisualiser(SortingAlgorithm sortingAlgorithm)
+        public SortingAlgorithmVisualiser(LinkedList<SortingAlgorithm.Frame> frames)
         {
-            this.sortingAlgorithm = sortingAlgorithm;
-            sortingAlgorithm.FrameUpdated += DisplayNextFrame;
+            this.frames = frames;
             InitializeComponent();
         }
 
-        public async void DisplayNextFrame(SortingAlgorithm.SortingFrame newFrame)
+        public async void DisplayNextFrame()
         {
-            currentFrame = newFrame;
-            pnlRect.Invalidate();
-            await Task.Delay(10000); // Delay to visualize the changes
+            while (currentFrameIndex < frames.Count)
+            {
+                pnlRect.Invalidate();
+                await Task.Delay(10); // Delay to visualize the changes
+                currentFrameIndex++;
+            }
         }
 
         private void pnlRect_Paint(object sender, PaintEventArgs e)
@@ -60,7 +63,7 @@ namespace AlgorithmVisualiser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            sortingAlgorithm.Sort();
+            DisplayNextFrame();
             button1.Enabled = false; // Disable the button to prevent multiple clicks
         }
 

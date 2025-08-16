@@ -8,7 +8,7 @@ namespace AlgorithmVisualiser
 {
     public abstract class SortingAlgorithm
     {
-        public event Action<SortingFrame> FrameUpdated;
+        protected LinkedList<Frame> frames = new LinkedList<Frame>();
         public int[] array;
 
         public int[] Array {
@@ -30,14 +30,14 @@ namespace AlgorithmVisualiser
             this.array = array;
         }
 
-        public struct SortingFrame
+        public struct Frame
         {
             public int[] array;
             public int[] redIndices;
             public int[] greenIndices;
             public int[] blueIndices;
 
-            public SortingFrame(int[] array, int[] redIndices,  int[] greenIndices, int[] blueIndices)
+            public Frame(int[] array, int[] redIndices,  int[] greenIndices, int[] blueIndices)
             {
                 this.array=array;
                 this.redIndices=redIndices;
@@ -46,20 +46,16 @@ namespace AlgorithmVisualiser
             }
         }
 
-        public abstract void Sort();
+        public abstract LinkedList<Frame> Sort();
 
-        public void PushFrame(SortingFrame frame)
-        {
-            FrameUpdated?.Invoke(frame);
-        }
 
-        public void CompletionAnimation(int[] array)
+        public void CompletionAnimation()
         {
-            PushFrame(new SortingFrame(array, null, null, null));
+            frames.AddLast(new Frame((int[])array.Clone(), null, null, null));
 
             for (int i = 1; i <= array.Length; i++)
             {
-                PushFrame(new SortingFrame(array, new int[0], new int[0], Enumerable.Range(0, i).ToArray()));
+                frames.AddLast(new Frame((int[])array.Clone(), new int[0], new int[0], Enumerable.Range(0, i).ToArray()));
             }
         }
 

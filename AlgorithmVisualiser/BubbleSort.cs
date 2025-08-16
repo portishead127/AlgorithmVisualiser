@@ -10,7 +10,7 @@ namespace AlgorithmVisualiser
     {
         public BubbleSort(int[] array) : base(array ) { }
 
-        public override void Sort()
+        public override LinkedList<Frame> Sort()
         {
             int n = array.Length;
             bool swapped;
@@ -20,7 +20,7 @@ namespace AlgorithmVisualiser
                 for (int j = 0; j < n - i - 1; j++)
                 {
                     // Highlight the current pair being compared
-                    PushFrame(new SortingFrame(array, new int[] {j}, new int[] {j+1}, null));
+                    frames.AddLast(new Frame((int[])array.Clone(), new int[] {j}, new int[] {j+1}, null));
                     if (array[j] > array[j + 1])
                     {
                         // Swap if the element found is greater than the next element
@@ -33,14 +33,15 @@ namespace AlgorithmVisualiser
                 // If no two elements were swapped by inner loop, then break
                 if (!swapped)
                 {
-                    CompletionAnimation(array);
-                    return;
+                    CompletionAnimation();
+                    return frames;
                 }
 
                 // Update the visualiser with the current state of the array
-                PushFrame(new SortingFrame(array, null, null, null));
+                frames.AddLast(new Frame((int[])array.Clone(), null, null, null));
             }
-            CompletionAnimation(array);
+            CompletionAnimation();
+            return frames;
         }
     }
 }
