@@ -90,7 +90,7 @@ namespace AlgorithmVisualiser
             }
             else
             {
-                return new SolidBrush(Color.White);
+                return new SolidBrush(Color.Black);
             }
         }
     }
