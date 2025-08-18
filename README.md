@@ -5,7 +5,7 @@
 - [X] Bubble Sort
 - [X] Bogo Sort (peak)
 - [X] Insertion Sort
-- [ ] Menu
+- [X] Menu
 - [ ] Speed/manual frame control
 - [ ] Styles (see array values)
 
