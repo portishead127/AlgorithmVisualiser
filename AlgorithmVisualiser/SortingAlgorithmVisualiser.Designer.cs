@@ -30,8 +30,8 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.pnlRect = new AlgorithmVisualiser.DoubleBufferedPanel();
             this.button2 = new System.Windows.Forms.Button();
+            this.pnlRect = new AlgorithmVisualiser.DoubleBufferedPanel();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,6 +60,16 @@
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBar1.Value = 10;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(431, 388);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(50, 50);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "FF";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // pnlRect
             // 
             this.pnlRect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -71,16 +81,6 @@
             this.pnlRect.Size = new System.Drawing.Size(775, 368);
             this.pnlRect.TabIndex = 0;
             this.pnlRect.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlRect_Paint);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(431, 388);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(50, 50);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "FF";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // SortingAlgorithmVisualiser
             // 

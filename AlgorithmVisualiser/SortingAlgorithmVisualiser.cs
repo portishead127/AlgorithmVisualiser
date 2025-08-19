@@ -15,7 +15,7 @@ namespace AlgorithmVisualiser
 {
     public partial class SortingAlgorithmVisualiser : Form
     {
-        bool running = false;
+        bool playing = false;
 
         Queue<SortingAlgorithm.Frame> frames;
         SortingAlgorithm.Frame currentFrame;
@@ -28,7 +28,7 @@ namespace AlgorithmVisualiser
 
         public async void DisplayNextFrame()
         {
-            while (frames.Any() && running)
+            while (frames.Any() && playing)
             {
                 int frameDuration = GetFrameDuration(); // ms
                 currentFrame = frames.Dequeue();
@@ -66,9 +66,10 @@ namespace AlgorithmVisualiser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            running = !running;
+            playing = !playing;
+            UpdateIcons();
 
-            if (running)
+            if (playing)
             {
                 DisplayNextFrame();
             }
@@ -96,7 +97,7 @@ namespace AlgorithmVisualiser
             }
             else
             {
-                return new SolidBrush(Color.Black);
+                return new SolidBrush(Color.Gray);
             }
         }
 
@@ -107,7 +108,19 @@ namespace AlgorithmVisualiser
 
         private void button2_Click(object sender, EventArgs e)
         {
-            trackBar1.Value = 10;
+            trackBar1.Value = trackBar1.Minimum;
+        }
+
+        private void UpdateIcons()
+        {
+            if (playing)
+            {
+                button1.Text = "PAUSE";
+            }
+            else
+            {
+                button1.Text = "PLAY";
+            }
         }
     }
 }
