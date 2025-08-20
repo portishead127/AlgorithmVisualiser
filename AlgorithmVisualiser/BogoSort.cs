@@ -10,7 +10,7 @@ namespace AlgorithmVisualiser
     {
         public BogoSort(int[] array) : base(array) { }
 
-        public override Queue<Frame> Sort()
+        public override LinkedList<Frame> Sort()
         {
             Random rng = new Random();
 
@@ -25,7 +25,7 @@ namespace AlgorithmVisualiser
                 array[index1] = array[index2];
                 array[index2] = temp;
 
-                frames.Enqueue(new Frame((int[])array.Clone(), new int[] {index1}, new int[] { index2 }, null));
+                frames.AddLast(new Frame((int[])array.Clone(), new int[] {index1}, new int[] { index2 }, null));
             }
             CompletionAnimation();
             return frames;

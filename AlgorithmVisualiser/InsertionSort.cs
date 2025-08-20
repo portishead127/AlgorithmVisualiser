@@ -10,7 +10,7 @@ namespace AlgorithmVisualiser
     {
         public InsertionSort(int[] array) : base(array) { }
 
-        public override Queue<Frame> Sort()
+        public override LinkedList<Frame> Sort()
         {
             for (int i = 1; i <= array.Length; i++)
             {
@@ -19,7 +19,7 @@ namespace AlgorithmVisualiser
                 {
                     if (array[j] > array[j+1])
                     {
-                        frames.Enqueue(new Frame((int[])array.Clone(), new int[] { j }, new int[] { i }, null));
+                        frames.AddLast(new Frame((int[])array.Clone(), new int[] { j }, new int[] { i }, null));
                         // Swap elements
                         int temp = array[j];
                         array[j] = array[j + 1];

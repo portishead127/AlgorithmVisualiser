@@ -17,32 +17,64 @@ namespace AlgorithmVisualiser
     {
         bool playing = false;
 
-        Queue<SortingAlgorithm.Frame> frames;
+        LinkedList<SortingAlgorithm.Frame> frames;
         SortingAlgorithm.Frame currentFrame;
+        LinkedListNode<SortingAlgorithm.Frame> currentNode;
 
-        public SortingAlgorithmVisualiser(Queue<SortingAlgorithm.Frame> frames)
+        public SortingAlgorithmVisualiser(LinkedList<SortingAlgorithm.Frame> frames)
         {
             this.frames = frames;
+            currentNode = frames.First;
+            currentFrame = currentNode.Value;
             InitializeComponent();
         }
 
         public async void DisplayNextFrameLoop()
         {
-            while (frames.Any() && playing)
+            while (playing)
             {
-                int frameDuration = GetFrameDuration(); // ms
-                currentFrame = frames.Dequeue();
-                pnlRect.Invalidate();
-                await Task.Delay(frameDuration);
+                await DisplayNextFrame();
             }
         }
 
-        public async void DisplayNextFrame()
+        public async Task DisplayNextFrame()
         {
-            int framesDuration = GetFrameDuration();
-            currentFrame = frames.Dequeue();
-            pnlRect.Invalidate();
-            await Task.Delay(framesDuration);
+            if(currentNode.Next != null)
+            {
+                currentNode = currentNode.Next;
+                currentFrame = currentNode.Value;
+                int framesDuration = GetFrameDuration();
+                pnlRect.Invalidate();
+                await Task.Delay(framesDuration);
+            }
+            else
+            {
+                UpdatePlayStatus(false);
+            }
+        }
+
+        public async void DisplayPrevFrameLoop()
+        {
+            while (playing)
+            {
+                await DisplayPrevFrame();
+            }
+        }
+
+        public async Task DisplayPrevFrame()
+        {
+            if (currentNode.Previous != null)
+            {
+                currentNode = currentNode.Previous;
+                currentFrame = currentNode.Value;
+                int framesDuration = GetFrameDuration();
+                pnlRect.Invalidate();
+                await Task.Delay(framesDuration);
+            }
+            else
+            {
+                UpdatePlayStatus(false);
+            }
         }
 
         private void pnlRect_Paint(object sender, PaintEventArgs e)
@@ -121,7 +153,17 @@ namespace AlgorithmVisualiser
         private void UpdatePlayStatus()
         {
             playing = !playing;
+            UpdatePlayIcons();
+        }
 
+        private void UpdatePlayStatus(bool state)
+        {
+            playing = state;
+            UpdatePlayIcons();
+        }
+
+        private void UpdatePlayIcons()
+        {
             if (playing)
             {
                 button1.Text = "PAUSE";
@@ -132,9 +174,16 @@ namespace AlgorithmVisualiser
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
-            DisplayNextFrame();
+            await DisplayNextFrame();
+            UpdatePlayStatus(false);
+        }
+
+        private async void button4_Click(object sender, EventArgs e)
+        {
+            await DisplayPrevFrame();
+            UpdatePlayStatus(false);
         }
     }
 }
