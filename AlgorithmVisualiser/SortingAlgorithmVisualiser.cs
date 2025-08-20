@@ -1,4 +1,5 @@
-﻿using NAudio.Wave.SampleProviders;
+﻿using AlgorithmVisualiser.Properties;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace AlgorithmVisualiser
     public partial class SortingAlgorithmVisualiser : Form
     {
         bool playing = false;
+        bool playingForwards = false;
 
         LinkedList<SortingAlgorithm.Frame> frames;
         SortingAlgorithm.Frame currentFrame;
@@ -39,7 +41,7 @@ namespace AlgorithmVisualiser
 
         public async Task DisplayNextFrame()
         {
-            if(currentNode.Next != null)
+            if(currentNode.Next != null && playingForwards)
             {
                 currentNode = currentNode.Next;
                 currentFrame = currentNode.Value;
@@ -63,7 +65,7 @@ namespace AlgorithmVisualiser
 
         public async Task DisplayPrevFrame()
         {
-            if (currentNode.Previous != null)
+            if (currentNode.Previous != null && !playingForwards)
             {
                 currentNode = currentNode.Previous;
                 currentFrame = currentNode.Value;
@@ -110,7 +112,19 @@ namespace AlgorithmVisualiser
 
             if (playing)
             {
+                playingForwards = true;
                 DisplayNextFrameLoop();
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            UpdatePlayStatus();
+
+            if (playing)
+            {
+                playingForwards = false;
+                DisplayPrevFrameLoop();
             }
         }
 
@@ -149,6 +163,7 @@ namespace AlgorithmVisualiser
         {
             trackBar1.Value = trackBar1.Minimum;
             UpdatePlayStatus();
+            playingForwards = true;
             DisplayNextFrameLoop();
         }
 
@@ -168,22 +183,26 @@ namespace AlgorithmVisualiser
         {
             if (playing)
             {
-                button1.Text = "PAUSE";
+                PLAY.Image = Resources.pause;
+                PLAYPREV.Image = Resources.pause;
             }
             else
             {
-                button1.Text = "PLAY";
+                PLAY.Image = Resources.play;
+                PLAYPREV.Image = Resources.play_prev;
             }
         }
 
         private async void button3_Click(object sender, EventArgs e)
         {
+            playingForwards = true;
             await DisplayNextFrame();
             UpdatePlayStatus(false);
         }
 
         private async void button4_Click(object sender, EventArgs e)
         {
+            playingForwards = false;
             await DisplayPrevFrame();
             UpdatePlayStatus(false);
         }
@@ -192,6 +211,7 @@ namespace AlgorithmVisualiser
         {
             trackBar1.Value = trackBar1.Minimum;
             UpdatePlayStatus();
+            playingForwards = false;
             DisplayPrevFrameLoop();
         }
     }
