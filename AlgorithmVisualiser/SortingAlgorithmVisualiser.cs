@@ -26,7 +26,7 @@ namespace AlgorithmVisualiser
             InitializeComponent();
         }
 
-        public async void DisplayNextFrame()
+        public async void DisplayNextFrameLoop()
         {
             while (frames.Any() && playing)
             {
@@ -35,6 +35,14 @@ namespace AlgorithmVisualiser
                 pnlRect.Invalidate();
                 await Task.Delay(frameDuration);
             }
+        }
+
+        public async void DisplayNextFrame()
+        {
+            int framesDuration = GetFrameDuration();
+            currentFrame = frames.Dequeue();
+            pnlRect.Invalidate();
+            await Task.Delay(framesDuration);
         }
 
         private void pnlRect_Paint(object sender, PaintEventArgs e)
@@ -66,12 +74,11 @@ namespace AlgorithmVisualiser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            playing = !playing;
-            UpdateIcons();
+            UpdatePlayStatus();
 
             if (playing)
             {
-                DisplayNextFrame();
+                DisplayNextFrameLoop();
             }
         }
 
@@ -111,8 +118,10 @@ namespace AlgorithmVisualiser
             trackBar1.Value = trackBar1.Minimum;
         }
 
-        private void UpdateIcons()
+        private void UpdatePlayStatus()
         {
+            playing = !playing;
+
             if (playing)
             {
                 button1.Text = "PAUSE";
@@ -121,6 +130,11 @@ namespace AlgorithmVisualiser
             {
                 button1.Text = "PLAY";
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DisplayNextFrame();
         }
     }
 }
