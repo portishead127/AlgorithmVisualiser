@@ -16,8 +16,8 @@ namespace AlgorithmVisualiser
 {
     public partial class SortingAlgorithmVisualiser : Form
     {
-        bool playing = false;
-        bool playingForwards = false;
+        //true - forwards, false - backwards, null - none
+        bool? playing = null;
 
         LinkedList<SortingAlgorithm.Frame> frames;
         SortingAlgorithm.Frame currentFrame;
@@ -33,7 +33,7 @@ namespace AlgorithmVisualiser
 
         public async void DisplayNextFrameLoop()
         {
-            while (playing)
+            while (playing == true)
             {
                 await DisplayNextFrame();
             }
@@ -41,7 +41,7 @@ namespace AlgorithmVisualiser
 
         public async Task DisplayNextFrame()
         {
-            if(currentNode.Next != null && playingForwards)
+            if (currentNode.Next != null)
             {
                 currentNode = currentNode.Next;
                 currentFrame = currentNode.Value;
@@ -51,13 +51,13 @@ namespace AlgorithmVisualiser
             }
             else
             {
-                UpdatePlayStatus(false);
+                UpdatePlayStatus(null);
             }
         }
 
         public async void DisplayPrevFrameLoop()
         {
-            while (playing)
+            while (playing == false)
             {
                 await DisplayPrevFrame();
             }
@@ -65,7 +65,7 @@ namespace AlgorithmVisualiser
 
         public async Task DisplayPrevFrame()
         {
-            if (currentNode.Previous != null && !playingForwards)
+            if (currentNode.Previous != null)
             {
                 currentNode = currentNode.Previous;
                 currentFrame = currentNode.Value;
@@ -75,7 +75,7 @@ namespace AlgorithmVisualiser
             }
             else
             {
-                UpdatePlayStatus(false);
+                UpdatePlayStatus(null);
             }
         }
 
@@ -108,24 +108,15 @@ namespace AlgorithmVisualiser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            UpdatePlayStatus();
+            UpdatePlayStatus(true);
 
-            if (playing)
-            {
-                playingForwards = true;
-                DisplayNextFrameLoop();
-            }
+            DisplayNextFrameLoop();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            UpdatePlayStatus();
-
-            if (playing)
-            {
-                playingForwards = false;
-                DisplayPrevFrameLoop();
-            }
+            UpdatePlayStatus(false);
+            DisplayPrevFrameLoop();
         }
 
         private bool ValidateFrame()
@@ -162,28 +153,36 @@ namespace AlgorithmVisualiser
         private void FFButton_Click(object sender, EventArgs e)
         {
             trackBar1.Value = trackBar1.Minimum;
-            UpdatePlayStatus();
-            playingForwards = true;
+            UpdatePlayStatus(true);
             DisplayNextFrameLoop();
         }
 
-        private void UpdatePlayStatus()
+        private void UpdatePlayStatus(bool? state)
         {
-            playing = !playing;
+            if (playing == state)
+            {
+                // If already in that state, pause
+                playing = null;
+            }
+            else
+            {
+                // Otherwise, switch to the requested state
+                playing = state;
+            }
             UpdatePlayIcons();
         }
 
-        private void UpdatePlayStatus(bool state)
-        {
-            playing = state;
-            UpdatePlayIcons();
-        }
 
         private void UpdatePlayIcons()
         {
-            if (playing)
+            if (playing == true)
             {
                 PLAY.Image = Resources.pause;
+                PLAYPREV.Image = Resources.play_prev;
+            }
+            else if(playing == false)
+            {
+                PLAY.Image = Resources.play;
                 PLAYPREV.Image = Resources.pause;
             }
             else
@@ -195,23 +194,20 @@ namespace AlgorithmVisualiser
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            playingForwards = true;
             await DisplayNextFrame();
-            UpdatePlayStatus(false);
+            UpdatePlayStatus(null);
         }
 
         private async void button4_Click(object sender, EventArgs e)
         {
-            playingForwards = false;
             await DisplayPrevFrame();
-            UpdatePlayStatus(false);
+            UpdatePlayStatus(null);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             trackBar1.Value = trackBar1.Minimum;
-            UpdatePlayStatus();
-            playingForwards = false;
+            UpdatePlayStatus(false);
             DisplayPrevFrameLoop();
         }
     }
