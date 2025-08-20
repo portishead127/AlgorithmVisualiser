@@ -127,6 +127,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(35, 20);
             this.textBox2.TabIndex = 7;
+            this.textBox2.Text = "25";
             // 
             // StartupForm
             // 

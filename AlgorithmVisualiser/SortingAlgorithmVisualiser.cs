@@ -145,9 +145,11 @@ namespace AlgorithmVisualiser
             return trackBar1.Value;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void FFButton_Click(object sender, EventArgs e)
         {
             trackBar1.Value = trackBar1.Minimum;
+            UpdatePlayStatus();
+            DisplayNextFrameLoop();
         }
 
         private void UpdatePlayStatus()
@@ -184,6 +186,13 @@ namespace AlgorithmVisualiser
         {
             await DisplayPrevFrame();
             UpdatePlayStatus(false);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            trackBar1.Value = trackBar1.Minimum;
+            UpdatePlayStatus();
+            DisplayPrevFrameLoop();
         }
     }
 }
