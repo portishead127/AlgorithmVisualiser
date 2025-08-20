@@ -1,14 +1,8 @@
 ﻿using AlgorithmVisualiser.Properties;
-using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,13 +13,11 @@ namespace AlgorithmVisualiser
         //true - forwards, false - backwards, null - none
         bool? playing = null;
 
-        LinkedList<SortingAlgorithm.Frame> frames;
         SortingAlgorithm.Frame currentFrame;
         LinkedListNode<SortingAlgorithm.Frame> currentNode;
 
         public SortingAlgorithmVisualiser(LinkedList<SortingAlgorithm.Frame> frames)
         {
-            this.frames = frames;
             currentNode = frames.First;
             currentFrame = currentNode.Value;
             InitializeComponent();
@@ -106,14 +98,14 @@ namespace AlgorithmVisualiser
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void PLAY_Click(object sender, EventArgs e)
         {
             UpdatePlayStatus(true);
 
             DisplayNextFrameLoop();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void PLAYPREV_Click(object sender, EventArgs e)
         {
             UpdatePlayStatus(false);
             DisplayPrevFrameLoop();
@@ -192,19 +184,19 @@ namespace AlgorithmVisualiser
             }
         }
 
-        private async void button3_Click(object sender, EventArgs e)
+        private async void NEXT_Click(object sender, EventArgs e)
         {
             await DisplayNextFrame();
             UpdatePlayStatus(null);
         }
 
-        private async void button4_Click(object sender, EventArgs e)
+        private async void PREV_Click(object sender, EventArgs e)
         {
             await DisplayPrevFrame();
             UpdatePlayStatus(null);
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void PP_Click(object sender, EventArgs e)
         {
             trackBar1.Value = trackBar1.Minimum;
             UpdatePlayStatus(false);

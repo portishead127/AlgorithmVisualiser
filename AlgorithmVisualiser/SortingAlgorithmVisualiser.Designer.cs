@@ -107,7 +107,7 @@
             this.PP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PP.TabIndex = 1;
             this.PP.TabStop = false;
-            this.PP.Click += new System.EventHandler(this.button5_Click);
+            this.PP.Click += new System.EventHandler(this.PP_Click);
             // 
             // PREV
             // 
@@ -118,7 +118,7 @@
             this.PREV.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PREV.TabIndex = 2;
             this.PREV.TabStop = false;
-            this.PREV.Click += new System.EventHandler(this.button4_Click);
+            this.PREV.Click += new System.EventHandler(this.PREV_Click);
             // 
             // PLAYPREV
             // 
@@ -129,7 +129,7 @@
             this.PLAYPREV.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PLAYPREV.TabIndex = 3;
             this.PLAYPREV.TabStop = false;
-            this.PLAYPREV.Click += new System.EventHandler(this.button6_Click);
+            this.PLAYPREV.Click += new System.EventHandler(this.PLAYPREV_Click);
             // 
             // PLAY
             // 
@@ -140,7 +140,7 @@
             this.PLAY.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PLAY.TabIndex = 4;
             this.PLAY.TabStop = false;
-            this.PLAY.Click += new System.EventHandler(this.button1_Click);
+            this.PLAY.Click += new System.EventHandler(this.PLAY_Click);
             // 
             // NEXT
             // 
@@ -151,7 +151,7 @@
             this.NEXT.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.NEXT.TabIndex = 5;
             this.NEXT.TabStop = false;
-            this.NEXT.Click += new System.EventHandler(this.button3_Click);
+            this.NEXT.Click += new System.EventHandler(this.NEXT_Click);
             // 
             // SortingAlgorithmVisualiser
             // 
