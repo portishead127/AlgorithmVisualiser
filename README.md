@@ -1,5 +1,6 @@
 # Algorithm Visualiser In Winforms
 > An educational program to teach basic searching and sorting algorithms inspired by [The Sound of Sorting](https://panthema.net/2013/sound-of-sorting/).
+> Visually displays algorithms to aid in learning by allowing the user to visualise the sequence of the algorithm.
 
 ## Features
 - [X] Bubble Sort
